@@ -1,5 +1,5 @@
 # Data Analytics Code-Alongs & Labs
--# raven was here
+raven was here
 
 This is your working repo for code-alongs (from lecture) and labs
 (in-class practice) — starter files you actually type into, not a reference
