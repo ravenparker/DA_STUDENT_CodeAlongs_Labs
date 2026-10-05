@@ -23,6 +23,7 @@ A teammate hands you a folder of files and asks, "can you tell me what shape thi
 
 ```bash
 # TODO: preview the first 3 lines of the structured file
+head -n 3
 ```
 
 ## Look at Unstructured Text
@@ -36,6 +37,7 @@ A teammate hands you a folder of files and asks, "can you tell me what shape thi
 ```bash
 $ echo "Great class today, the git demo finally clicked for me!" > note.txt
 # TODO: print the contents of note.txt to the screen
+cat note.txt
 ```
 
 ## Pulling a Field Out of Unstructured Text
@@ -48,6 +50,7 @@ $ echo "Great class today, the git demo finally clicked for me!" > note.txt
 
 ```bash
 # TODO: search note.txt for lines containing "git"
+grep "git" note.txt
 ```
 
 ## Row Count vs. Word Count
@@ -60,5 +63,7 @@ $ echo "Great class today, the git demo finally clicked for me!" > note.txt
 
 ```bash
 # TODO: count how many lines are in the structured file
+wc -l ../../data/energy_sample.csv 
 # TODO: count how many words are in the unstructured note
+wc -w note.txt
 ```
