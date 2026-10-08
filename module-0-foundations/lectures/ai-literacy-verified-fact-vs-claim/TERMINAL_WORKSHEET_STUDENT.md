@@ -35,6 +35,7 @@ $ rm -rf old_data/
 
 ```bash
 # TODO: count the file's rows to double-check the AI's claim
+wc -l ../../data/energy_sample.csv
 ```
 
 ## Verify Against the Real File
