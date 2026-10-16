@@ -29,7 +29,7 @@ You've just joined a data team, and someone drops `data/energy_sample.csv` in yo
 
 Two questions, in this order. First: how did your group figure out whether every country reports every column? Different groups almost certainly took different routes to the same file — compare them before deciding which you'd reach for next time. Second: which collection concerns did your group flag, and which single data-quality question did you sharpen out of them? Put each group's question up where everyone can read it, then ask the class which ones a real analyst could actually go answer — and which ones sound serious but can't be checked.
 
-1. My group figured out whether every country reports every column by using the following command: 
+1. My group figured out whether every country reports every column by using the following command:
 
 ```bash
 cut -d ',' -f1 data/energy_sample.csv |sort|uniq -c| sort -nr
