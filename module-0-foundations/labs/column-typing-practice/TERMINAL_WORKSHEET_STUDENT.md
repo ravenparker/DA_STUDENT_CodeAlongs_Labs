@@ -29,7 +29,45 @@ You've just joined a data team, and someone drops `data/energy_sample.csv` in yo
 
 Two questions, in this order. First: how did your group figure out whether every country reports every column? Different groups almost certainly took different routes to the same file — compare them before deciding which you'd reach for next time. Second: which collection concerns did your group flag, and which single data-quality question did you sharpen out of them? Put each group's question up where everyone can read it, then ask the class which ones a real analyst could actually go answer — and which ones sound serious but can't be checked.
 
-## Notes
+1. My group figured out whether every country reports every column by using the following command: 
+
+```bash
+cut -d ',' -f1 data/energy_sample.csv |sort|uniq -c| sort -nr
+```
+
+The output of this was the following:
+
+```bash
+7 Vietnam
+7 United States 
+7 Nigeria
+7 Kenya
+7 Japan
+7 India
+7 Germany
+7 Canada
+7 Brazil
+7 Australia
+```
+
+Each country is reported the same number of times. However, after performing another command that pulled all info pertaining to a country, two countries were missing values. See the commands below:
+
+```bash
+awk -F ',' '$1=="Nigeria"' energy_sample.csv
+awk -F ',' '$1=="Kenya"' energy_sample.csv
+```
+
+These two countries had missing values in the last two columns, but all other countries were fully populated across each column.
+
+2. The collection concerns my group flagged were:
+
+Why were there missing values for Kenya and Nigeria?
+
+How were their `energy_per_capita` was populated if their `fossil_share_energy` and `renewables_share_energy` weren't recorded?
+
+The single data-quality question we sharpened out of them was: why were only these two countries missing values for both types of energy consumption recorded?
+
+### Notes
 
 ```bash
 awk -F ',' '$1=="Nigeria"' energy_sample.csv > nigeria.csv
@@ -46,4 +84,6 @@ cut -d ',' -f3 output.csv |sort|uniq -c| sort -nr
 # -f3 column 3
 # sort = sort 
 # uniq -c = remove duplicates
+# sort -n = sort by number
+awk -F',' 'NR==1' '$1=="Kenya"' energy_sample.csv > kenya.csv  
 ```
