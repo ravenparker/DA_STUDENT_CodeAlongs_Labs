@@ -44,17 +44,17 @@ SUBMIT
 
 # 1. What does one row represent?
 # Your answer:
-#
+# 
 #
 
 # 2. Which fields hold numbers, and which hold text?
 # Your answer:
-#
+# 
 #
 
 # 3. What already looks wrong, missing or inconsistent?
 # Your answer:
-#
+# 
 #
 
 ############################################################################
@@ -84,7 +84,7 @@ SUBMIT
 # If the two differ, say which line you mis-read. Do not edit the
 # prediction.
 
-with open("data/volunteer_shifts.txt") as f:
+with open("volunteer_shifts.txt") as f:
     shifts = [line for line in f.read().splitlines()
               if line and not line.startswith("#")]
 
@@ -93,14 +93,16 @@ for shift in shifts:
     hours = int(shift.split(",")[2])
     # TODO: write the test for a long shift. The coordinator counts a
     #       shift of 4 hours or more.
-    if None:
-        # TODO: this is the counting line. Move long_shifts on by one.
-        long_shifts = None
+    if hours >= 4:
+        long_shifts += 1
+    # if None:
+    #     # TODO: this is the counting line. Move long_shifts on by one.
+    #     long_shifts = None
 
 print("shifts of 4+ hours:", long_shifts)
 
 # Your answer:
-#
+# 5
 #
 
 # ===== Step 2: Total the Week's Hours, Printing the Running Total Each Pass =====
@@ -126,10 +128,10 @@ for shift in shifts:
     volunteer, day, hours = shift.split(",")
     # TODO: add this shift's hours onto the running total. Mind the
     #       type: everything that came out of that split is a string.
-    total = None
+    total += int(hours)
     # TODO: print one line per pass: the day, the volunteer, and the
     #       total so far. This printed line IS the tracing tool.
-    print(day, volunteer, "| running total:", None)
+    print(day, volunteer, "| running total:", total)
 
 print("total hours logged this week:", total)
 
@@ -220,8 +222,8 @@ for i in range(len(shifts) - 1):
 fixed_seen = 0
 # TODO: write the loop header that visits EVERY row, not all but one.
 #       The body below is already correct. Only the range changes.
-for i in None:
-    fixed_seen = fixed_seen + 1
+# for i in None:
+#     fixed_seen = fixed_seen + 1
 
 print("rows in the file:   ", len(shifts))
 print("buggy loop visited: ", buggy_seen)
