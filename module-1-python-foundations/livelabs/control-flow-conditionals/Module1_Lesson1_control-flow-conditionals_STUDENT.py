@@ -77,7 +77,7 @@ print('----- 4. While Loop, Live -----')
 count = 0
 while count < 4:
     print(count)
-    count+= 1
+    count += 1
 
 # PREDICT before you run: In the While Loop, Live code above, change count <= 3
 #                         to count < 3. How many numbers print?
