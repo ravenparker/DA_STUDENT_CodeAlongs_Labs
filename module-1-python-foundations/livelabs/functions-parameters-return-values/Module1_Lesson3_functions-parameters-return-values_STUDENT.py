@@ -28,7 +28,11 @@ fill it in before you run the file again.
 print('----- 1. Define and Call, Live -----')
 # TODO: define a function named greet that prints a welcome
 # message, then call it twice
+def greet():
+    print("Hello")
 
+greet()
+greet()
 
 # ===== 2. Parameters, Live =====
 # Make greet work for anyone: pass in a name and print a personal welcome for
@@ -36,18 +40,23 @@ print('----- 1. Define and Call, Live -----')
 print('----- 2. Parameters, Live -----')
 # TODO: add a name parameter to greet, and print a
 # personalized welcome message for each of 2 names
+def greet(username):
+    print("Hello, ", username)
+
+greet("Jordan")
+greet("Amara")
 
 # DISCUSS: The code is def double(n): print(n * 2), then double(5). Put the
 #          steps of that call in order. A: n becomes 5. B: the body runs. C:
 #          double gets called with 5.
 # Your answer:
-#
+# A: n becomes 5
 #
 #
 # PREDICT before you run: Given def double(n): print(n * 2), what does
 #                         double(5) print?
 # Your answer:
-#
+# 10
 #
 
 
@@ -57,10 +66,15 @@ print('----- 2. Parameters, Live -----')
 print('----- 3. Return, Live -----')
 # TODO: write double(n) using return (not print), then use
 # its result in an expression - add 1 to it and print that
+def double(n):
+    return(n * 2)
+
+result = double(7) + 1
+print(result)
 
 # DISCUSS: A function should return a doubled value, but total + 1 raises
 #          TypeError. Using what you just saw in the Return, Live code, what's
 #          the most likely cause?
 # Your answer:
-#
-#
+# A function that returns a TypeError when adding 1 likely only prints the result and doesn't return it.
+# 
