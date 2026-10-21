@@ -44,17 +44,17 @@ SUBMIT
 
 # 1. What does one row represent?
 # Your answer:
-#
+#  One row represents a person's class and how many sessions they signed up for.
 #
 
 # 2. Which fields hold numbers, and which hold text?
 # Your answer:
-#
+# The first two fields hold text and the last field holds numbers. 
 #
 
 # 3. What already looks wrong, missing or inconsistent?
 # Your answer:
-#
+# What's inconsistent is the types of classes mentioned. For example, Pottery is mentioned twice, whereas Swim is mentioned four times. 
 #
 
 ############################################################################
@@ -78,7 +78,7 @@ SUBMIT
 # The arithmetic is the same arithmetic a plain loop would do. What changes
 # is that the answer comes back to you instead of going to the screen.
 
-with open("data/rec_center_signups.txt") as f:
+with open("../data/rec_center_signups.txt") as f:
     signups = [line for line in f.read().splitlines()
                if line and not line.startswith("#")]
 
@@ -86,6 +86,12 @@ def total_sessions(records):
     # TODO: add up the sessions column across every record in `records`
     # TODO: hand the total back to whoever called this. Do not print it.
     pass
+#     total = 0
+#     for i in records:
+#         total += i
+#     return total
+
+# total_sessions(f)
 
 swim_only = []
 # TODO: fill swim_only with just the Swim records
@@ -233,7 +239,7 @@ def log_signup_broken(record):
     last_seen = record.split(",")[0]
     return last_seen
 
-log_signup_broken(signups[2])
+# log_signup_broken(signups[2])
 
 # Your answer:
 #
