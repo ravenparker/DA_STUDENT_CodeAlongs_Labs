@@ -44,17 +44,17 @@ SUBMIT
 
 # 1. What does one row represent?
 # Your answer:
-# 
-#
+# One row represents three values that make up a volunteer shift log at a community center.
+# There are three "columns," column 1 being a name, column 2 being which day of the week, and column 3 being the hours worked for that day.
 
 # 2. Which fields hold numbers, and which hold text?
 # Your answer:
-# 
+# The first two fields hold text and the final field holds numbers. 
 #
 
 # 3. What already looks wrong, missing or inconsistent?
 # Your answer:
-# 
+# The days people came in for is inconsistent. It could just be a schedule thing, but Amara was in for 4 of the 5 days, while Dev was only there for two. 
 #
 
 ############################################################################
@@ -103,7 +103,9 @@ print("shifts of 4+ hours:", long_shifts)
 
 # Your answer:
 # 5
-#
+# `.split()` is a method that divides the values in a string into substrings. This also applies to lists and dicts.
+# Since we're splitting a line from `volunteer_shifts.txt`, separating the line into 3 parts for `volunteer`, `day`, and `hours`.
+# `.split(',')` separates the string values on the line by comma, splitting it into 3 substrings in total since there's two commas in each line.
 
 # ===== Step 2: Total the Week's Hours, Printing the Running Total Each Pass =====
 # You already wrote a loop that counts. This one adds up instead, and you
@@ -152,7 +154,7 @@ print("total hours logged this week:", total)
 # Be ready to answer "why did you do it that way?"
 
 # Your notes for the share out:
-#
+# 
 #
 
 ############################################################################
@@ -182,16 +184,16 @@ days = []
 for shift in shifts:
     volunteer, day, hours = shift.split(",")
     # TODO: only append a volunteer this list does not already have.
-    if None:
+    if volunteer not in volunteers:
         volunteers.append(volunteer)
     # TODO: the same test again, for the day.
-    if None:
+    if day not in days:
         days.append(day)
 
 checks = 0
 for volunteer in volunteers:
     # TODO: the inner loop. One pass per weekday, for each volunteer.
-    for day in None:
+    for day in days:
         checks = checks + 1
 
 print(len(volunteers), "volunteers x", len(days), "days =", checks)
@@ -222,15 +224,15 @@ for i in range(len(shifts) - 1):
 fixed_seen = 0
 # TODO: write the loop header that visits EVERY row, not all but one.
 #       The body below is already correct. Only the range changes.
-# for i in None:
-#     fixed_seen = fixed_seen + 1
+for i in range(len(shifts)):
+    fixed_seen = fixed_seen + 1
 
 print("rows in the file:   ", len(shifts))
 print("buggy loop visited: ", buggy_seen)
 print("fixed loop visited: ", fixed_seen)
 # TODO: print the one row the buggy loop never reached. Reach into the
 #       list by position; do not retype the row by hand.
-print("the row it never saw:", None)
+print("the row it never saw:", shifts[-1])
 
 # ----- Share Out: Day 2 -----
 # Last 15 minutes, back together as a class. Bring:
