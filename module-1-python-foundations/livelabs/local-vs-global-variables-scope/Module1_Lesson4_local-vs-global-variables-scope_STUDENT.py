@@ -38,12 +38,19 @@ print('----- 1. Local Scope, Live -----')
 # TODO: define make_total() with a local variable total set
 # to 100, returning it, then try printing total outside the
 # function and watch what happens
+def make_total():
+    total = 100
+    print(total)
+    return total
+
+# print(total)
+make_total()
 
 # DISCUSS: Now try a new function. set_x() runs and sets x = 5 inside it, but
 #          print(x) outside raises NameError. Why?
 # Your answer:
-#
-#
+# `x`` is a local variable within set_x(), meaning it's contained within the function.
+# Since it is limited to the function, a NameError is received because it's not defined elsewhere.
 
 
 # ===== 2. Reading a Global, Live =====
@@ -61,6 +68,12 @@ print('----- 2. Reading a Global, Live -----')
 #
 #
 
+tax_rate = .08
+def price_with_tax(price): 
+    price = price + (price * tax_rate)
+    return price
+
+price_with_tax(100)
 
 # ===== 3. Refactor: Global to Parameter =====
 # Pass the tax rate in as a parameter, so the function only uses what it is
