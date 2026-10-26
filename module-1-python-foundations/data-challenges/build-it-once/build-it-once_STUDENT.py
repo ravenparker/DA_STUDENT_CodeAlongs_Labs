@@ -238,14 +238,16 @@ def log_signup(record, previous_member):
     # TODO: pull the member name out of `record`
     # TODO: print the previous member and this one on one line
     # TODO: return this member's name
-    member_name = record.split(",")[0]
-    for i in member_name:
-        pass
+    member = record.split(",")[0]
+    print("previous:", previous_member, "| current:", member)
+    return member
         
 
 last_member = "nobody yet"
 # TODO: call log_signup on signups[0], then on signups[1], storing
 # what it returns back into last_member each time
+last_member = log_signup(signups[0], last_member)
+last_member = log_signup(signups[1], last_member)
 
 last_seen = "nobody yet"
 
@@ -258,7 +260,7 @@ def log_signup_broken(record):
 # log_signup_broken(signups[2])
 
 # Your answer:
-#
+# The `UnboundLocalError` received when we run `log_signup_broken` is because it tries accessing a local variable before the variable is given a value. 
 #
 
 # ----- Share Out: Day 2 -----
@@ -305,7 +307,12 @@ def log_signup_broken(record):
 # Three function names. Everything else is yours.
 
 def sessions_in(record):
-    pass
+    for i in signups:
+        if i == record:
+            return int(i[2])
+
+print(sessions_in(1))    
+     
 
 def signups_for(records, member):
     pass
