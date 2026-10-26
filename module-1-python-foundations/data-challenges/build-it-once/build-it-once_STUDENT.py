@@ -239,7 +239,7 @@ def log_signup(record, previous_member):
     # TODO: print the previous member and this one on one line
     # TODO: return this member's name
     member = record.split(",")[0]
-    print("previous:", previous_member, "| current:", member)
+    print("previous:", previous_member, ", current:", member)
     return member
         
 
@@ -307,21 +307,37 @@ def log_signup_broken(record):
 # Three function names. Everything else is yours.
 
 def sessions_in(record):
-    for i in signups:
-        if i == record:
-            return int(i[2])
+    return signups[record].split(',')[2]
 
 print(sessions_in(1))    
-     
+print(sessions_in(7))
 
 def signups_for(records, member):
-    pass
+    member_recs = []
+    for i in records: 
+        rec = i.split(",")[0]
+        if rec == member: 
+            member_recs.append(i)
+    return member_recs
+
+print(signups_for(signups, "Nia"))
+print(signups_for(signups, "Tess"))
 
 def total_for(records, member):
     # This one should get its work done by calling the other two.
-    pass
+    count = 0
+    for record in signups_for(records, member): 
+        count += sessions_in(record)
+    return count 
+    
+
 
 # TODO: print a line per member
+# print(total_for(signups, "Nia"))
+# print(total_for(signups, "Omar"))
+# print(total_for(signups, "Tess"))
+# print(total_for(signups, "Rafi"))
+# print(total_for(signups, "Gwen"))
 
 # ===== Step 6: Run total_for() on Five Inputs Nobody Asked For, Then Judge Each Answer =====
 # No new functions. Call the ones you already have on inputs nobody asked
