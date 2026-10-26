@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-# Data Analytics Code-Alongs & Labs
-=======
 # Data Analytics Code-Alongs & Data Challenges
->>>>>>> upstream/main
 
 This is your working repo for **code-alongs** (the code you type with your
 instructor during each LiveLab) and **Data Challenges** (the hands-on
