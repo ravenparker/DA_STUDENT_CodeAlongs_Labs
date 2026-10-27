@@ -327,13 +327,13 @@ def total_for(records, member):
     # This one should get its work done by calling the other two.
     count = 0
     for record in signups_for(records, member): 
-        count += sessions_in(record)
+        count += int(sessions_in(record))
     return count 
     
 
 
 # TODO: print a line per member
-# print(total_for(signups, "Nia"))
+print(total_for(signups, "Nia"))
 # print(total_for(signups, "Omar"))
 # print(total_for(signups, "Tess"))
 # print(total_for(signups, "Rafi"))
