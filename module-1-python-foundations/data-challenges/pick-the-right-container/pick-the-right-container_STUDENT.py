@@ -75,10 +75,26 @@ print(worst, big ** 2)
 # TODO: if card_ids[i] == card, add 1 to tap_counts[i], set found, break
 # TODO: after the inner loop, if not found, append `card` and 1 to the lists
 
-# busiest = tap_counts.index(max(tap_counts))
-# print("distinct cards:", len(card_ids))
-# print("comparisons the two parallel lists needed:", comparisons)
-# print("busiest card:", card_ids[busiest], "with", max(tap_counts), "taps")
+card_ids = []
+tap_counts = []
+comparisons = 0
+for row in taps:
+    card = row[1]
+    found = False
+    for i in range(len(card_ids)):
+        comparisons += 1
+        if card_ids[i] == card: 
+            tap_counts[i] += 1
+            found = True
+            break
+    if found == False: 
+        card_ids.append(card)
+        tap_counts.append(1)
+
+busiest = tap_counts.index(max(tap_counts))
+print("distinct cards:", len(card_ids))
+print("comparisons the two parallel lists needed:", comparisons)
+print("busiest card:", card_ids[busiest], "with", max(tap_counts), "taps")
 
 # Step 3, answer 1:
 #
@@ -95,11 +111,14 @@ print(worst, big ** 2)
 # TODO: assign `repeat_riders` to 0
 # TODO: loop over `taps_by_card`; add 1 to `repeat_riders` if a count is > 1
 
-# print("distinct cards:", len(taps_by_card))
-# print("lookups the dictionary needed:", lookups)
-# print("unique stations:", len(stations), sorted(stations))
-# print("cards that tapped more than once:", repeat_riders)
-# print("taps for C001:", taps_by_card["C001"])
+taps_by_card = {}
+
+
+print("distinct cards:", len(taps_by_card))
+print("lookups the dictionary needed:", lookups)
+print("unique stations:", len(stations), sorted(stations))
+print("cards that tapped more than once:", repeat_riders)
+print("taps for C001:", taps_by_card["C001"])
 
 # Step 4, answer 1:
 #
