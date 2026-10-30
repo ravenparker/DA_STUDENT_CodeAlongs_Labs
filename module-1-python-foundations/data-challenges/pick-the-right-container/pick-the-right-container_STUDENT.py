@@ -3,7 +3,7 @@
 
 import json
 
-DATA_FILE = "station_taps.csv"  # edit the filepath with the data
+DATA_FILE = "../data/station_taps.csv"  # edit the filepath with the data 
 
 with open(DATA_FILE) as f:
     rows = [line.split(",") for line in f.read().splitlines() if line]
@@ -20,7 +20,12 @@ def scan_for(tap_id, records):
     # TODO: loop over `records`; add 1 to `comparisons` for every row
     # TODO: inside the loop, return `comparisons` when row[0] == tap_id
     # TODO: after the loop, return `comparisons`
-    pass
+    comparisons = 0
+    for row in records:
+        comparisons += 1
+        if row[0] == tap_id:
+            return comparisons
+    return comparisons
 
 
 print("columns:", header)
@@ -39,11 +44,19 @@ print("comparisons to find T999:", scan_for("T999", taps))
 for size in [5, 10, 20, 40]:
     worst = scan_for("T999", taps[:size])
     # TODO: print "rows:", `size`, "| worst-case comparisons:", `worst`
+    print("rows:", size, "| worst-case comparisons:", worst)
 # TODO: assign `pairs` to 0; loop over `taps` with a loop over `taps` inside
 # TODO: add 1 to `pairs` in the inner loop
 # TODO: print len(taps) and `pairs`
 # TODO: assign `big` to len(taps) * 10
 # TODO: print the scan's worst case and the pair loop's count on `big` rows
+pairs = 0
+for tap in taps: 
+    for inner_tap in taps: 
+        pairs += 1
+print(len(taps), pairs)
+big = len(taps) * 10
+print(worst, big ** 2)
 
 # Step 2, answer 1:
 #
@@ -62,10 +75,10 @@ for size in [5, 10, 20, 40]:
 # TODO: if card_ids[i] == card, add 1 to tap_counts[i], set found, break
 # TODO: after the inner loop, if not found, append `card` and 1 to the lists
 
-busiest = tap_counts.index(max(tap_counts))
-print("distinct cards:", len(card_ids))
-print("comparisons the two parallel lists needed:", comparisons)
-print("busiest card:", card_ids[busiest], "with", max(tap_counts), "taps")
+# busiest = tap_counts.index(max(tap_counts))
+# print("distinct cards:", len(card_ids))
+# print("comparisons the two parallel lists needed:", comparisons)
+# print("busiest card:", card_ids[busiest], "with", max(tap_counts), "taps")
 
 # Step 3, answer 1:
 #
@@ -82,11 +95,11 @@ print("busiest card:", card_ids[busiest], "with", max(tap_counts), "taps")
 # TODO: assign `repeat_riders` to 0
 # TODO: loop over `taps_by_card`; add 1 to `repeat_riders` if a count is > 1
 
-print("distinct cards:", len(taps_by_card))
-print("lookups the dictionary needed:", lookups)
-print("unique stations:", len(stations), sorted(stations))
-print("cards that tapped more than once:", repeat_riders)
-print("taps for C001:", taps_by_card["C001"])
+# print("distinct cards:", len(taps_by_card))
+# print("lookups the dictionary needed:", lookups)
+# print("unique stations:", len(stations), sorted(stations))
+# print("cards that tapped more than once:", repeat_riders)
+# print("taps for C001:", taps_by_card["C001"])
 
 # Step 4, answer 1:
 #
@@ -130,11 +143,11 @@ print(text)
 # TODO: replace None with json.load() of "tap_summary.json"
 reloaded = None
 
-print("total_taps came back as:", reloaded["total_taps"])
-print("taps_by_card came back as a", type(reloaded["taps_by_card"]).__name__)
-print("C001 straight out of the file:", reloaded["taps_by_card"]["C001"])
-print("stations came back as a", type(reloaded["stations"]).__name__)
-print("round trip identical:", reloaded["taps_by_card"] == taps_by_card)
+# print("total_taps came back as:", reloaded["total_taps"])
+# print("taps_by_card came back as a", type(reloaded["taps_by_card"]).__name__)
+# print("C001 straight out of the file:", reloaded["taps_by_card"]["C001"])
+# print("stations came back as a", type(reloaded["stations"]).__name__)
+# print("round trip identical:", reloaded["taps_by_card"] == taps_by_card)
 
 # Step 6, answer 1:
 #
