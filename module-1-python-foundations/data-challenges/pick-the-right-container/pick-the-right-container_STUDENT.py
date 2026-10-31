@@ -151,17 +151,17 @@ print("taps for C001:", taps_by_card["C001"])
 # TODO: replace each None with your Day 2 value; keep `stations` a set
 summary = {
     "service_day": "2026-03-02",
-    "total_taps": None,
-    "distinct_cards": None,
-    "stations": None,
-    "taps_by_card": None,
+    "total_taps": lookups,
+    "distinct_cards": len(taps_by_card),
+    "stations": stations,
+    "taps_by_card": taps_by_card,
 }
 
 print("about to serialize", len(summary), "keys")
 # TODO: run the file and answer below before you change anything
 # TODO: then put # in front of the next two lines so Step 6 can run
-text = json.dumps(summary, indent=2)
-print(text)
+# text = json.dumps(summary, indent=2)
+# print(text)
 
 # Step 5, answer 1:
 #
@@ -176,12 +176,19 @@ print(text)
 # TODO: json.dump() `summary` into a with open("tap_summary.json", "w")
 # TODO: replace None with json.load() of "tap_summary.json"
 reloaded = None
+summary["stations"] = sorted(stations)
+with open ("tap_summary.json", "w") as f:
+    json.dump(summary, f) 
 
-# print("total_taps came back as:", reloaded["total_taps"])
-# print("taps_by_card came back as a", type(reloaded["taps_by_card"]).__name__)
-# print("C001 straight out of the file:", reloaded["taps_by_card"]["C001"])
-# print("stations came back as a", type(reloaded["stations"]).__name__)
-# print("round trip identical:", reloaded["taps_by_card"] == taps_by_card)
+with open ("tap_summary.json") as f: 
+    reloaded = json.load(f)
+
+
+print("total_taps came back as:", reloaded["total_taps"])
+print("taps_by_card came back as a", type(reloaded["taps_by_card"]).__name__)
+print("C001 straight out of the file:", reloaded["taps_by_card"]["C001"])
+print("stations came back as a", type(reloaded["stations"]).__name__)
+print("round trip identical:", reloaded["taps_by_card"] == taps_by_card)
 
 # Step 6, answer 1:
 #
