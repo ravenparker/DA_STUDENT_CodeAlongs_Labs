@@ -333,7 +333,7 @@ def total_for(records, member):
 
 
 # TODO: print a line per member
-print(total_for(signups, "Nia"))
+# print(total_for(signups, "Nia"))
 # print(total_for(signups, "Omar"))
 # print(total_for(signups, "Tess"))
 # print(total_for(signups, "Rafi"))
