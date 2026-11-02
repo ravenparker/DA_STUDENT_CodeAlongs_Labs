@@ -6,16 +6,18 @@
 print('----- 1. Lists Let You Change Anything, Anytime -----')
 # TODO: create a list called pending_orders
 # TODO: put "ORD-1001", "ORD-1002" and "ORD-1003" in it
-
+pending_orders = ["ORD-1001", "ORD-1002", "ORD-1003"]
 
 # TODO: append "ORD-1004" to pending_orders
-
+pending_orders.append("ORD-1004")
+print(pending_orders)
 
 # TODO: change pending_orders[0] to "ORD-1001-R" (lists are mutable)
-
+pending_orders[0] = "ORD-1001-R"
+print(pending_orders)
 
 # TODO: print pending_orders, its length, and its last item (use [-1])
-
+print(pending_orders, len(pending_orders), pending_orders[-1])
 
 # ===== 2. Once Locked In, a Tuple Can't Be Changed =====
 # Store a log entry in a tuple, unpack it, then try to change it.
@@ -23,6 +25,7 @@ print('----- 1. Lists Let You Change Anything, Anytime -----')
 print("----- 2. Once Locked In, a Tuple Can't Be Changed -----")
 # TODO: create a tuple called log_entry: timestamp, level, status code
 # TODO: use any timestamp string, "ERROR" and 500
+log_entry = ("2026-10-28T10:32:00Z", "ERROR", 500)
 
 
 # TODO: unpack log_entry into timestamp, level, status
@@ -42,7 +45,7 @@ product_stock = {"SKU-1001": 92, "SKU-2002": 34}
 product_stock["SKU-3003"] = 8
 product_stock["SKU-1001"] = 89
 
-for sku, count in product_stock.____():
+for sku, count in product_stock.items():
     print(f"{sku}: {count}")
 
 
