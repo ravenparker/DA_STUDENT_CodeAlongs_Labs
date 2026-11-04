@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Validate, Catch, Keep Going: see DataChallengeOverview&Steps.md."""
 
-DATA_FILE = "service_requests.csv"  # edit the filepath with the data
+DATA_FILE = "../data/service_requests.csv"  # edit the filepath with the data
 
 with open(DATA_FILE) as f:
     lines = f.read().splitlines()
@@ -15,10 +15,12 @@ rows = [line for line in lines[1:] if line]
 # Step 1: Write `validate_request()` to Return a Verdict and a Reason
 # TODO: assign `EXPECTED_FIELDS` to 5
 # TODO: assign `ALLOWED_STATUS` to ["Open", "In Progress", "Closed"]
-
+EXPECTED_FIELDS = 5
+ALLOWED_STATUS = ["Open", "In Progress", "Closed"]
 
 def validate_request(row):
     # TODO: assign `fields` to `row` split on commas
+    fields = row.split(",")
     if len(fields) != EXPECTED_FIELDS:
         return False, "wrong field count: " + str(len(fields))
     # TODO: unpack `fields` into the five names in the CSV header
@@ -26,7 +28,12 @@ def validate_request(row):
     # TODO: if `status` is not in ALLOWED_STATUS, return False and a reason
     # TODO: make that reason "status not allowed: " plus `status`
     # TODO: return True and "ok"
-    pass
+    request_id,complaint_type,borough,days_open,status = fields
+    if borough == "":
+        return False, "borough is empty"
+    elif status not in ALLOWED_STATUS:
+        return False, (f"status not allowed: {status}")
+    return True, "ok"
 
 
 print(validate_request("SR-1001,Noise - Residential,Brooklyn,3,Closed"))
@@ -44,7 +51,13 @@ print(validate_request("SR-1009,Water System,Queens,4,Escalated"))
 # TODO: loop over `rows`; unpack validate_request(row) into ok, reason
 # TODO: if `ok`, add 1 to `valid`
 # TODO: else print row.split(",")[0], "REJECTED -" and `reason`
-
+valid = 0
+for row in rows: 
+    ok, reason = validate_request(row)
+    if ok:
+        valid += 1
+    else: 
+        print(row.split(",")[0], "REJECTED -", reason)
 print("header:", header)
 print("rows read:", len(rows))
 print("passed Day 1 validation:", valid)
@@ -64,8 +77,14 @@ print("passed Day 1 validation:", valid)
 # TODO: add `days_open` to `total_days` and 1 to `counted`
 # TODO: print the row's ID, "days open:" and `days_open`
 # TODO: after your answers, comment out this step so Step 4 can run
+# total_days = 0
+# for row in rows:
+#     ok, reason = validate_request(row)
+#     if not ok: 
+#         continue
+    
 
-print("average days open:", total_days / counted)
+# print("average days open:", total_days / counted)
 
 # Step 3, answer 1:
 #
@@ -83,7 +102,13 @@ def check_days_open(value):
     # TODO: if `days` is below 0, return False and a reason
     # TODO: make that reason "days_open is negative: " plus `value`
     # TODO: return True and "ok"
-    pass
+    try:
+        days = int(value)
+    except ValueError: 
+        return False, (f"days_open is not a number: {value}")
+    if days < 0:
+        return False, (f"days_open is negative: {value}")
+    return True, "ok"
 
 
 # TODO: assign `total_days`, `counted` and `skipped` to 0
@@ -91,6 +116,19 @@ def check_days_open(value):
 # TODO: if ok, unpack check_days_open() of the fourth field into ok, reason
 # TODO: if still ok, add the days to `total_days` and 1 to `counted`
 # TODO: else add 1 to `skipped`; print the ID, "SKIPPED -" and `reason`
+total_days = 0
+counted = 0 
+skipped = 0
+for row in rows: 
+    ok, reason = validate_request(row)
+    if ok: 
+        ok, reason = check_days_open(row.split(",")[3])
+        if ok:
+            total_days += int(row.split(",")[3])
+            counted += 1
+        else:
+            skipped += 1
+            print(row.split(",")[0], (f"SKIPPED - {reason}"))
 
 print("counted:", counted, "| skipped:", skipped)
 print("average days open:", round(total_days / counted, 1))
