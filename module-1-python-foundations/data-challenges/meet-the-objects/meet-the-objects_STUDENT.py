@@ -3,7 +3,7 @@
 
 import json
 
-DATA_FILE = "bike_stations.json"  # edit the filepath with the data
+DATA_FILE = "../data/bike_stations.json"  # edit the filepath with the data
 
 with open(DATA_FILE) as f:
     stations = json.load(f)
@@ -15,10 +15,18 @@ with open(DATA_FILE) as f:
 # TODO: assign `names` and `bikes` to two empty lists
 # TODO: loop over `stations`; append each one's "name" to `names`
 # TODO: append the same station's "bikes_available" to `bikes`
+names = []
+bikes = []
+for station in stations: 
+    names.append(station['name'])
+    bikes.append(station['bikes_available'])
+
 names.pop(2)
 
 print("stations in the file:", len(stations))
 # TODO: loop over range(len(names)); print names[i], "|", bikes[i], "bikes"
+for i in range(len(names)):
+    print(names[i], "|", bikes[i], "bikes")
 
 # Step 1, answer 1:
 #
@@ -34,7 +42,14 @@ class Station:
     # TODO: in __init__, assign each parameter to self.<same name>
     # TODO: add a parameter and self.<name> for each extra field you agreed
     # TODO: add needs_restock(self): True if bikes_available < capacity / 4
-    pass
+    def __init__(self, name, capacity, bikes_available):
+        self.name = name
+        self.capacity = capacity
+        self.bikes_available = bikes_available
+        
+    def needs_restock(self):
+        if self.bikes_available < self.capacity/4:
+            return True
 
 
 # TODO: assign `fleet` to []; loop over `stations` as `s`
@@ -42,6 +57,13 @@ class Station:
 # TODO: assign `busy`, `quiet` to two stations with equal needs_restock()
 # TODO: print both needs_restock() answers
 # TODO: set busy.bikes_available to 0, then print both answers again
+fleet = []
+for s in stations: 
+    fleet.append(Station(s["name"], s["capacity"], s["bikes_available"]))
+
+busy = fleet[1]
+quiet = fleet[-1]
+
 
 # Step 2, answer 1:
 #
@@ -64,6 +86,23 @@ print(fleet[:2])
 # TODO: add __str__(self) to return text like "Grand Army Plaza: 6 of 48 bikes"
 # TODO: build it from self.name, self.bikes_available and self.capacity
 # TODO: rebuild `fleet` from this class with the same loop as Step 2
+class Station:     
+    def __init__(self, name, capacity, bikes_available):
+        self.name = name
+        self.capacity = capacity
+        self.bikes_available = bikes_available
+    
+    def __str__(self):
+        return f"{self.name}: {self.bikes_available} of {self.capacity} bikes"
+        
+    def needs_restock(self):
+        if self.bikes_available < self.capacity/4:
+            return True
+        
+fleet = []
+for s in stations: 
+    fleet.append(Station(s["name"], s["capacity"], s["bikes_available"]))
+
 
 print(fleet[0])
 print(fleet[:2])
@@ -80,6 +119,26 @@ print(fleet[:2])
 # TODO: rebuild `fleet` from this class with the same loop as Step 2
 # TODO: assign `van_list` to []; loop over `fleet`
 # TODO: append each station whose needs_restock() returns True to `van_list`
+class Station:     
+    def __init__(self, name, capacity, bikes_available):
+        self.name = name
+        self.capacity = capacity
+        self.bikes_available = bikes_available
+    
+    def __str__(self):
+        return f"{self.name}: {self.bikes_available} of {self.capacity} bikes"
+    
+    def __repr__(self):
+        return f"Station{self.name}, {self.bikes_available}"
+        
+    def needs_restock(self):
+        if self.bikes_available < self.capacity/4:
+            return True
+
+van_list = []
+for i in fleet: 
+    if i.needs_restock == True:
+        van_list.append(Station(s["name"], s["capacity"], s["bikes_available"]))        
 
 print(van_list)
 for station in van_list:

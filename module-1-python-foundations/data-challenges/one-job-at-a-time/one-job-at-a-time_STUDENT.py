@@ -3,7 +3,7 @@
 
 import json
 
-DATA_FILE = "pantry_donations.csv"  # edit the filepath with the data
+DATA_FILE = "../data/pantry_donations.csv"  # edit the filepath with the data
 
 
 # ===== Day 1 =====
@@ -27,13 +27,31 @@ def validate_donation(record):
     # TODO: in a try, call float(parts[3])
     # TODO: in except ValueError, return False, "pounds is not a number"
     # TODO: return True and ""
-    pass
+    """Returns a verdict or reason of a record"""
+    parts = record.split(",")
+    if len(parts) != 5:
+        return False, "wrong field count"
+    if parts[2].strip() == "":
+        return False, "missing category"
+    try: 
+        float(parts[3])
+    except ValueError: 
+        return False, "pounds is not a number"
+    return True, ""
 
 
 # TODO: assign `records` to read_donations(DATA_FILE), `valid` to []
 # TODO: loop over `records`; unpack validate_donation(record) as ok, reason
 # TODO: if `ok`, append `record` to `valid`
 # TODO: else print "rejected", the record's ID plus ":", and `reason`
+records = read_donations(DATA_FILE)
+valid = []
+for record in records:
+    ok, reason = validate_donation(record)
+    if ok:
+        valid.append(record)
+    else: 
+        print(f"rejected, {record.split(",")[0]}: {reason}")
 print(len(valid), "usable records out of", len(records))
 
 # Step 1, answer 1:
@@ -57,11 +75,11 @@ def summarize_donations(valid_records):
 
 
 # TODO: assign `summary` to summarize_donations(valid)
-print("records:", summary["records"], "| total pounds:",
-      summary["total_pounds"])
-for category, stats in summary["by_category"].items():
-    print(category, stats["donations"], "donations,", stats["pounds"],
-          "lbs")
+# print("records:", summary["records"], "| total pounds:",
+#       summary["total_pounds"])
+# for category, stats in summary["by_category"].items():
+#     print(category, stats["donations"], "donations,", stats["pounds"],
+#           "lbs")
 
 # Step 2, answer 1:
 #
@@ -87,10 +105,10 @@ def run_pipeline(in_path, out_path, summarize):
 
 written = run_pipeline(DATA_FILE, "donation_summary.json",
                        summarize_donations)
-print("wrote", written)
-for func in [read_donations, validate_donation, summarize_donations,
-             export_summary]:
-    print(func.__name__ + ":", func.__doc__.splitlines()[0])
+# print("wrote", written)
+# for func in [read_donations, validate_donation, summarize_donations,
+#              export_summary]:
+#     print(func.__name__ + ":", func.__doc__.splitlines()[0])
 
 # Step 3, answer 1:
 #
@@ -109,10 +127,10 @@ def summarize_by_day(valid_records):
 # TODO: replace None with json.load() of "donation_summary.json"
 reloaded = None
 
-print("records:", reloaded["records"], "| total pounds:",
-      reloaded["total_pounds"])
-for day, stats in sorted(reloaded["by_day"].items()):
-    print(day, stats["donations"], "donations,", stats["pounds"], "lbs")
+# print("records:", reloaded["records"], "| total pounds:",
+#       reloaded["total_pounds"])
+# for day, stats in sorted(reloaded["by_day"].items()):
+#     print(day, stats["donations"], "donations,", stats["pounds"], "lbs")
 
 # Step 4, answer 1:
 #
