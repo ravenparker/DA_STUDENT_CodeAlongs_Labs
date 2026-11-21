@@ -71,15 +71,31 @@ def summarize_donations(valid_records):
     # TODO: add 1 to its "donations" and `pounds` to its "pounds"
     # TODO: add `pounds` to `total_pounds`
     # TODO: return a dict of "records", "total_pounds" and "by_category"
-    pass
+    """Break down each valid donation by category"""
+    by_category = {}
+    total_pounds = 0.0
+    for record in valid_records:
+        parts = record.split(',')
+        category = parts[2]
+        pounds = float(parts[3])
+        if category not in by_category:
+            by_category[category] = {"donations": 0, "pounds": 0.0}
+        by_category[category]["donations"] += 1
+        by_category[category]["pounds"] += pounds
+        total_pounds += pounds
+    return {"records": len(valid_records),
+            "total_pounds": total_pounds, 
+            "by_category": by_category
+        }
 
 
 # TODO: assign `summary` to summarize_donations(valid)
-# print("records:", summary["records"], "| total pounds:",
-#       summary["total_pounds"])
-# for category, stats in summary["by_category"].items():
-#     print(category, stats["donations"], "donations,", stats["pounds"],
-#           "lbs")
+summary = summarize_donations(valid)
+print("records:", summary["records"], "| total pounds:",
+      summary["total_pounds"])
+for category, stats in summary["by_category"].items():
+    print(category, stats["donations"], "donations,", stats["pounds"],
+          "lbs")
 
 # Step 2, answer 1:
 #
@@ -92,7 +108,10 @@ def export_summary(summary, path):
     # TODO: add a one-sentence docstring naming its one job
     # TODO: in a with open(path, "w") block, json.dump `summary`, indent=2
     # TODO: return `path`
-    pass
+    """Write a summary dict to a file as JSON"""
+    with open(path, "w") as f: 
+        json.dump(summary, f, indent=2)
+    return path
 
 
 def run_pipeline(in_path, out_path, summarize):
@@ -100,15 +119,21 @@ def run_pipeline(in_path, out_path, summarize):
     # TODO: assign `kept` to [] and loop over read_donations(in_path)
     # TODO: append each record that validate_donation() passes to `kept`
     # TODO: return export_summary() of summarize(kept) and `out_path`
-    pass
+    """Send the donation log through every stage and save the result."""
+    kept = []
+    for record in read_donations(in_path):
+        ok, reason = validate_donation(record)
+        if ok: 
+            kept.append(record)
+    return export_summary(summarize(kept), out_path)
 
 
 written = run_pipeline(DATA_FILE, "donation_summary.json",
                        summarize_donations)
-# print("wrote", written)
-# for func in [read_donations, validate_donation, summarize_donations,
-#              export_summary]:
-#     print(func.__name__ + ":", func.__doc__.splitlines()[0])
+print("wrote", written)
+for func in [read_donations, validate_donation, summarize_donations,
+             export_summary]:
+    print(func.__name__ + ":", func.__doc__.splitlines()[0])
 
 # Step 3, answer 1:
 #
@@ -120,17 +145,33 @@ written = run_pipeline(DATA_FILE, "donation_summary.json",
 def summarize_by_day(valid_records):
     # TODO: add a one-sentence docstring naming its one job
     # TODO: return the same dict shape, with "by_day" keyed by parts[4]
-    pass
-
+    """Build a daily breakdown of valid donations."""
+    by_day = {}
+    total_pounds = 0.0
+    for record in valid_records:
+        parts = record.split(",")
+        day = parts[4]
+        pounds = float(parts[3])
+        if day not in by_day:
+            by_day[day] = {"donations": 0, "pounds": 0.0}
+        by_day[day]["donations"] += 1
+        by_day[day]["pounds"] += pounds
+        total_pounds += pounds
+    return {"records": len(valid_records),
+            "total_pounds": total_pounds,
+            "by_day": by_day}
 
 # TODO: call run_pipeline(DATA_FILE, "donation_summary.json", summarize_by_day)
 # TODO: replace None with json.load() of "donation_summary.json"
-reloaded = None
+run_pipeline(DATA_FILE, "donation_summary.json", summarize_by_day)
 
-# print("records:", reloaded["records"], "| total pounds:",
-#       reloaded["total_pounds"])
-# for day, stats in sorted(reloaded["by_day"].items()):
-#     print(day, stats["donations"], "donations,", stats["pounds"], "lbs")
+with open ("donation_summary.json") as f:
+    reloaded = json.load(f)
+
+print("records:", reloaded["records"], "| total pounds:",
+      reloaded["total_pounds"])
+for day, stats in sorted(reloaded["by_day"].items()):
+    print(day, stats["donations"], "donations,", stats["pounds"], "lbs")
 
 # Step 4, answer 1:
 #
